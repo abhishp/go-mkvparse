@@ -7,6 +7,7 @@ package mkvparse
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -187,7 +188,7 @@ func parseElementAfterID(reader io.Reader, id ElementID, elementOffset int64, cu
 			} else {
 				ucount, nextID, nextIDCount, err = skipUnknownSizeElements(reader, id)
 			}
-			if err != nil {
+			if err != nil && !errors.Is(err, io.EOF) {
 				return -1, err
 			}
 			err = handler.HandleMasterEnd(id, info)
@@ -206,7 +207,7 @@ func parseElementAfterID(reader io.Reader, id ElementID, elementOffset int64, cu
 		} else {
 			if descend {
 				_, err := parseElements(reader, dataOffset, size, level+1, handler)
-				if err != nil {
+				if err != nil && !errors.Is(err, io.EOF) {
 					return -1, err
 				}
 			} else {
