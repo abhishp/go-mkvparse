@@ -7,7 +7,7 @@ import (
 	"math"
 )
 
-func readVarInt(reader io.Reader) (int64, int64, bool, error) {
+func ReadVarInt(reader io.Reader) (int64, int64, bool, error) {
 	return readVarIntRaw(reader, true)
 }
 

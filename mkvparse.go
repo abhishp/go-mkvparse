@@ -112,14 +112,14 @@ func parseUnknownSizeElements(reader io.Reader, currentOffset int64, unknownSize
 
 func skipUnknownSizeElements(reader io.Reader, unknownSizeParent ElementID) (count int64, nextID ElementID, nextIDCount int64, err error) {
 	for {
-		id, idCount, err := readElementID(reader)
+		id, idCount, err := ReadElementID(reader)
 		if err != nil {
 			return -1, -1, -1, err
 		}
 		if isFinishUnknownSizeBlock(id, unknownSizeParent) {
 			return count, id, idCount, nil
 		}
-		size, sizeCount, all1, err := readVarInt(reader)
+		size, sizeCount, all1, err := ReadVarInt(reader)
 		if err != nil {
 			return -1, -1, -1, err
 		}
@@ -142,7 +142,7 @@ func isFinishUnknownSizeBlock(id, parentID ElementID) bool {
 // Recursively descends master elements.
 // If unknownSizeParent is set, returns nextID and nextIDCount if it was read
 func parseElement(reader io.Reader, currentOffset int64, level int, unknownSizeParent ElementID, handler Handler) (count int64, nextID ElementID, nextIDCount int64, err error) {
-	id, idCount, err := readElementID(reader)
+	id, idCount, err := ReadElementID(reader)
 	if err != nil {
 		return -1, -1, -1, err
 	}
@@ -157,7 +157,7 @@ func parseElement(reader io.Reader, currentOffset int64, level int, unknownSizeP
 }
 
 func parseElementAfterID(reader io.Reader, id ElementID, elementOffset int64, currentOffset int64, level int, unknownSizeParent ElementID, handler Handler) (count int64, err error) {
-	size, sizeCount, all1, err := readVarInt(reader)
+	size, sizeCount, all1, err := ReadVarInt(reader)
 	if err != nil {
 		return -1, err
 	}
@@ -367,7 +367,7 @@ func unpadString(b []byte) []byte {
 	return b[0:0]
 }
 
-func readElementID(reader io.Reader) (ElementID, int64, error) {
+func ReadElementID(reader io.Reader) (ElementID, int64, error) {
 	rawID, count, _, err := readVarIntRaw(reader, false)
 	return ElementID(rawID), count, err
 }

@@ -19,7 +19,7 @@ func TestReadElementID(t *testing.T) {
 	for id, encoding := range testIDs {
 		encoding = append(encoding, 0xde, 0xad, 0xbe, 0xef)
 		reader := bytes.NewReader(encoding)
-		result, count, err := readElementID(reader)
+		result, count, err := ReadElementID(reader)
 		if err != nil {
 			t.Errorf("%x: %v", encoding, err)
 		}

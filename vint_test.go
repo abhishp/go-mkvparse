@@ -35,7 +35,7 @@ func TestReadVarInt(t *testing.T) {
 			copy(in, test.in)
 			in = append(in, 0xde, 0xad, 0xbe, 0xef)
 			reader := bytes.NewReader(in)
-			result, count, isAll1, err := readVarInt(reader)
+			result, count, isAll1, err := ReadVarInt(reader)
 			if test.isError {
 				if err == nil {
 					t.Fatalf("unexpected succes")
