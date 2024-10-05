@@ -2,8 +2,9 @@
 
 package mkvparse
 
-// Supported ElementIDs
+// Supported ElementIDs. See https://www.matroska.org/technical/elements.html
 const (
+	AESSettingsCipherModeElement       ElementID = 0x47E8
 	AlphaModeElement                   ElementID = 0x53C0
 	AspectRatioTypeElement             ElementID = 0x54B3
 	AttachedFileElement                ElementID = 0x61A7
@@ -13,7 +14,12 @@ const (
 	BitDepthElement                    ElementID = 0x6264
 	BitsPerChannelElement              ElementID = 0x55B2
 	BlockAddIDElement                  ElementID = 0xEE
+	BlockAddIDExtraDataElement         ElementID = 0x41ED
+	BlockAddIDNameElement              ElementID = 0x41A4
+	BlockAddIDTypeElement              ElementID = 0x41E7
+	BlockAddIDValueElement             ElementID = 0x41F0
 	BlockAdditionIDElement             ElementID = 0xCB
+	BlockAdditionMappingElement        ElementID = 0x41E4
 	BlockAdditionalElement             ElementID = 0xA5
 	BlockAdditionsElement              ElementID = 0x75A1
 	BlockDurationElement               ElementID = 0x9B
@@ -27,8 +33,8 @@ const (
 	ChannelPositionsElement            ElementID = 0x7D7B
 	ChannelsElement                    ElementID = 0x9F
 	ChapCountryElement                 ElementID = 0x437E
+	ChapLanguageBCP47Element           ElementID = 0x437D
 	ChapLanguageElement                ElementID = 0x437C
-	ChapLanguageIETFElement            ElementID = 0x437D
 	ChapProcessCodecIDElement          ElementID = 0x6955
 	ChapProcessCommandElement          ElementID = 0x6911
 	ChapProcessDataElement             ElementID = 0x6933
@@ -42,12 +48,13 @@ const (
 	ChapterFlagHiddenElement           ElementID = 0x98
 	ChapterPhysicalEquivElement        ElementID = 0x63C3
 	ChapterSegmentEditionUIDElement    ElementID = 0x6EBC
-	ChapterSegmentUIDElement           ElementID = 0x6E67
+	ChapterSegmentUUIDElement          ElementID = 0x6E67
+	ChapterSkipTypeElement             ElementID = 0x4588
 	ChapterStringUIDElement            ElementID = 0x5654
 	ChapterTimeEndElement              ElementID = 0x92
 	ChapterTimeStartElement            ElementID = 0x91
 	ChapterTrackElement                ElementID = 0x8F
-	ChapterTrackNumberElement          ElementID = 0x89
+	ChapterTrackUIDElement             ElementID = 0x89
 	ChapterTranslateCodecElement       ElementID = 0x69BF
 	ChapterTranslateEditionUIDElement  ElementID = 0x69FC
 	ChapterTranslateElement            ElementID = 0x6924
@@ -69,10 +76,10 @@ const (
 	CodecSettingsElement               ElementID = 0x3A9697
 	CodecStateElement                  ElementID = 0xA4
 	ColourElement                      ElementID = 0x55B0
-	ColourSpaceElement                 ElementID = 0x2EB524
 	ContentCompAlgoElement             ElementID = 0x4254
 	ContentCompSettingsElement         ElementID = 0x4255
 	ContentCompressionElement          ElementID = 0x5034
+	ContentEncAESSettingsElement       ElementID = 0x47E7
 	ContentEncAlgoElement              ElementID = 0x47E1
 	ContentEncKeyIDElement             ElementID = 0x47E2
 	ContentEncodingElement             ElementID = 0x6240
@@ -120,33 +127,42 @@ const (
 	EBMLMaxSizeLengthElement           ElementID = 0x42F3
 	EBMLReadVersionElement             ElementID = 0x42F7
 	EBMLVersionElement                 ElementID = 0x4286
+	EditionDisplayElement              ElementID = 0x4520
 	EditionEntryElement                ElementID = 0x45B9
 	EditionFlagDefaultElement          ElementID = 0x45DB
 	EditionFlagHiddenElement           ElementID = 0x45BD
 	EditionFlagOrderedElement          ElementID = 0x45DD
+	EditionLanguageIETFElement         ElementID = 0x45E4
+	EditionStringElement               ElementID = 0x4521
 	EditionUIDElement                  ElementID = 0x45BC
+	EmphasisElement                    ElementID = 0x52F1
 	EncryptedBlockElement              ElementID = 0xAF
 	FieldOrderElement                  ElementID = 0x9D
 	FileDataElement                    ElementID = 0x465C
 	FileDescriptionElement             ElementID = 0x467E
-	FileMimeTypeElement                ElementID = 0x4660
+	FileMediaTypeElement               ElementID = 0x4660
 	FileNameElement                    ElementID = 0x466E
 	FileReferralElement                ElementID = 0x4675
 	FileUIDElement                     ElementID = 0x46AE
 	FileUsedEndTimeElement             ElementID = 0x4662
 	FileUsedStartTimeElement           ElementID = 0x4661
+	FlagCommentaryElement              ElementID = 0x55AF
 	FlagDefaultElement                 ElementID = 0x88
 	FlagEnabledElement                 ElementID = 0xB9
 	FlagForcedElement                  ElementID = 0x55AA
+	FlagHearingImpairedElement         ElementID = 0x55AB
 	FlagInterlacedElement              ElementID = 0x9A
 	FlagLacingElement                  ElementID = 0x9C
+	FlagOriginalElement                ElementID = 0x55AE
+	FlagTextDescriptionsElement        ElementID = 0x55AD
+	FlagVisualImpairedElement          ElementID = 0x55AC
 	FrameNumberElement                 ElementID = 0xCD
 	FrameRateElement                   ElementID = 0x2383E3
 	GammaValueElement                  ElementID = 0x2FB523
 	InfoElement                        ElementID = 0x1549A966
 	LaceNumberElement                  ElementID = 0xCC
+	LanguageBCP47Element               ElementID = 0x22B59D
 	LanguageElement                    ElementID = 0x22B59C
-	LanguageIETFElement                ElementID = 0x22B59D
 	LuminanceMaxElement                ElementID = 0x55D9
 	LuminanceMinElement                ElementID = 0x55DA
 	MasteringMetadataElement           ElementID = 0x55D0
@@ -159,7 +175,7 @@ const (
 	MuxingAppElement                   ElementID = 0x4D80
 	NameElement                        ElementID = 0x536E
 	NextFilenameElement                ElementID = 0x3E83BB
-	NextUIDElement                     ElementID = 0x3EB923
+	NextUUIDElement                    ElementID = 0x3EB923
 	OldStereoModeElement               ElementID = 0x53B9
 	OutputSamplingFrequencyElement     ElementID = 0x78B5
 	PixelCropBottomElement             ElementID = 0x54AA
@@ -171,7 +187,7 @@ const (
 	PositionElement                    ElementID = 0xA7
 	PrevFilenameElement                ElementID = 0x3C83AB
 	PrevSizeElement                    ElementID = 0xAB
-	PrevUIDElement                     ElementID = 0x3CB923
+	PrevUUIDElement                    ElementID = 0x3CB923
 	PrimariesElement                   ElementID = 0x55BB
 	PrimaryBChromaticityXElement       ElementID = 0x55D5
 	PrimaryBChromaticityYElement       ElementID = 0x55D6
@@ -190,7 +206,7 @@ const (
 	ReferenceFrameElement              ElementID = 0xC8
 	ReferenceOffsetElement             ElementID = 0xC9
 	ReferencePriorityElement           ElementID = 0xFA
-	ReferenceTimeCodeElement           ElementID = 0xCA
+	ReferenceTimestampElement          ElementID = 0xCA
 	ReferenceVirtualElement            ElementID = 0xFD
 	SamplingFrequencyElement           ElementID = 0xB5
 	SeekElement                        ElementID = 0x4DBB
@@ -201,7 +217,7 @@ const (
 	SegmentElement                     ElementID = 0x18538067
 	SegmentFamilyElement               ElementID = 0x4444
 	SegmentFilenameElement             ElementID = 0x7384
-	SegmentUIDElement                  ElementID = 0x73A4
+	SegmentUUIDElement                 ElementID = 0x73A4
 	SilentTrackNumberElement           ElementID = 0x58D7
 	SilentTracksElement                ElementID = 0x5854
 	SimpleBlockElement                 ElementID = 0xA3
@@ -212,11 +228,12 @@ const (
 	TagAttachmentUIDElement            ElementID = 0x63C6
 	TagBinaryElement                   ElementID = 0x4485
 	TagChapterUIDElement               ElementID = 0x63C4
+	TagDefaultBogusElement             ElementID = 0x44B4
 	TagDefaultElement                  ElementID = 0x4484
 	TagEditionUIDElement               ElementID = 0x63C9
 	TagElement                         ElementID = 0x7373
+	TagLanguageBCP47Element            ElementID = 0x447B
 	TagLanguageElement                 ElementID = 0x447A
-	TagLanguageIETFElement             ElementID = 0x447B
 	TagNameElement                     ElementID = 0x45A3
 	TagStringElement                   ElementID = 0x4487
 	TagTrackUIDElement                 ElementID = 0x63C5
@@ -225,8 +242,8 @@ const (
 	TargetTypeValueElement             ElementID = 0x68CA
 	TargetsElement                     ElementID = 0x63C0
 	TimeSliceElement                   ElementID = 0xE8
-	TimecodeElement                    ElementID = 0xE7
-	TimecodeScaleElement               ElementID = 0x2AD7B1
+	TimestampElement                   ElementID = 0xE7
+	TimestampScaleElement              ElementID = 0x2AD7B1
 	TitleElement                       ElementID = 0x7BA9
 	TrackCombinePlanesElement          ElementID = 0xE3
 	TrackEntryElement                  ElementID = 0xAE
@@ -239,7 +256,7 @@ const (
 	TrackPlaneElement                  ElementID = 0xE4
 	TrackPlaneTypeElement              ElementID = 0xE6
 	TrackPlaneUIDElement               ElementID = 0xE5
-	TrackTimecodeScaleElement          ElementID = 0x23314F
+	TrackTimestampScaleElement         ElementID = 0x23314F
 	TrackTranslateCodecElement         ElementID = 0x66BF
 	TrackTranslateEditionUIDElement    ElementID = 0x66FC
 	TrackTranslateElement              ElementID = 0x6624
@@ -253,6 +270,7 @@ const (
 	TrickTrackFlagElement              ElementID = 0xC6
 	TrickTrackSegmentUIDElement        ElementID = 0xC1
 	TrickTrackUIDElement               ElementID = 0xC0
+	UncompressedFourCCElement          ElementID = 0x2EB524
 	VideoElement                       ElementID = 0xE0
 	VoidElement                        ElementID = 0xEC
 	WhitePointChromaticityXElement     ElementID = 0x55D7
@@ -262,6 +280,8 @@ const (
 
 func getElementType(el ElementID) elementType {
 	switch el {
+	case AESSettingsCipherModeElement:
+		return uintegerType
 	case AlphaModeElement:
 		return uintegerType
 	case AspectRatioTypeElement:
@@ -280,8 +300,18 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case BlockAddIDElement:
 		return uintegerType
+	case BlockAddIDExtraDataElement:
+		return binaryType
+	case BlockAddIDNameElement:
+		return stringType
+	case BlockAddIDTypeElement:
+		return uintegerType
+	case BlockAddIDValueElement:
+		return uintegerType
 	case BlockAdditionIDElement:
 		return uintegerType
+	case BlockAdditionMappingElement:
+		return masterType
 	case BlockAdditionalElement:
 		return binaryType
 	case BlockAdditionsElement:
@@ -308,9 +338,9 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case ChapCountryElement:
 		return stringType
-	case ChapLanguageElement:
+	case ChapLanguageBCP47Element:
 		return stringType
-	case ChapLanguageIETFElement:
+	case ChapLanguageElement:
 		return stringType
 	case ChapProcessCodecIDElement:
 		return uintegerType
@@ -338,8 +368,10 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case ChapterSegmentEditionUIDElement:
 		return uintegerType
-	case ChapterSegmentUIDElement:
+	case ChapterSegmentUUIDElement:
 		return binaryType
+	case ChapterSkipTypeElement:
+		return uintegerType
 	case ChapterStringUIDElement:
 		return utf8Type
 	case ChapterTimeEndElement:
@@ -348,7 +380,7 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case ChapterTrackElement:
 		return masterType
-	case ChapterTrackNumberElement:
+	case ChapterTrackUIDElement:
 		return uintegerType
 	case ChapterTranslateCodecElement:
 		return uintegerType
@@ -392,13 +424,13 @@ func getElementType(el ElementID) elementType {
 		return binaryType
 	case ColourElement:
 		return masterType
-	case ColourSpaceElement:
-		return binaryType
 	case ContentCompAlgoElement:
 		return uintegerType
 	case ContentCompSettingsElement:
 		return binaryType
 	case ContentCompressionElement:
+		return masterType
+	case ContentEncAESSettingsElement:
 		return masterType
 	case ContentEncAlgoElement:
 		return uintegerType
@@ -494,6 +526,8 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case EBMLVersionElement:
 		return uintegerType
+	case EditionDisplayElement:
+		return masterType
 	case EditionEntryElement:
 		return masterType
 	case EditionFlagDefaultElement:
@@ -502,7 +536,13 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case EditionFlagOrderedElement:
 		return uintegerType
+	case EditionLanguageIETFElement:
+		return stringType
+	case EditionStringElement:
+		return utf8Type
 	case EditionUIDElement:
+		return uintegerType
+	case EmphasisElement:
 		return uintegerType
 	case EncryptedBlockElement:
 		return binaryType
@@ -512,7 +552,7 @@ func getElementType(el ElementID) elementType {
 		return binaryType
 	case FileDescriptionElement:
 		return utf8Type
-	case FileMimeTypeElement:
+	case FileMediaTypeElement:
 		return stringType
 	case FileNameElement:
 		return utf8Type
@@ -524,15 +564,25 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case FileUsedStartTimeElement:
 		return uintegerType
+	case FlagCommentaryElement:
+		return uintegerType
 	case FlagDefaultElement:
 		return uintegerType
 	case FlagEnabledElement:
 		return uintegerType
 	case FlagForcedElement:
 		return uintegerType
+	case FlagHearingImpairedElement:
+		return uintegerType
 	case FlagInterlacedElement:
 		return uintegerType
 	case FlagLacingElement:
+		return uintegerType
+	case FlagOriginalElement:
+		return uintegerType
+	case FlagTextDescriptionsElement:
+		return uintegerType
+	case FlagVisualImpairedElement:
 		return uintegerType
 	case FrameNumberElement:
 		return uintegerType
@@ -544,9 +594,9 @@ func getElementType(el ElementID) elementType {
 		return masterType
 	case LaceNumberElement:
 		return uintegerType
-	case LanguageElement:
+	case LanguageBCP47Element:
 		return stringType
-	case LanguageIETFElement:
+	case LanguageElement:
 		return stringType
 	case LuminanceMaxElement:
 		return floatType
@@ -572,7 +622,7 @@ func getElementType(el ElementID) elementType {
 		return utf8Type
 	case NextFilenameElement:
 		return utf8Type
-	case NextUIDElement:
+	case NextUUIDElement:
 		return binaryType
 	case OldStereoModeElement:
 		return uintegerType
@@ -596,7 +646,7 @@ func getElementType(el ElementID) elementType {
 		return utf8Type
 	case PrevSizeElement:
 		return uintegerType
-	case PrevUIDElement:
+	case PrevUUIDElement:
 		return binaryType
 	case PrimariesElement:
 		return uintegerType
@@ -634,7 +684,7 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case ReferencePriorityElement:
 		return uintegerType
-	case ReferenceTimeCodeElement:
+	case ReferenceTimestampElement:
 		return uintegerType
 	case ReferenceVirtualElement:
 		return integerType
@@ -656,7 +706,7 @@ func getElementType(el ElementID) elementType {
 		return binaryType
 	case SegmentFilenameElement:
 		return utf8Type
-	case SegmentUIDElement:
+	case SegmentUUIDElement:
 		return binaryType
 	case SilentTrackNumberElement:
 		return uintegerType
@@ -678,15 +728,17 @@ func getElementType(el ElementID) elementType {
 		return binaryType
 	case TagChapterUIDElement:
 		return uintegerType
+	case TagDefaultBogusElement:
+		return uintegerType
 	case TagDefaultElement:
 		return uintegerType
 	case TagEditionUIDElement:
 		return uintegerType
 	case TagElement:
 		return masterType
-	case TagLanguageElement:
+	case TagLanguageBCP47Element:
 		return stringType
-	case TagLanguageIETFElement:
+	case TagLanguageElement:
 		return stringType
 	case TagNameElement:
 		return utf8Type
@@ -704,9 +756,9 @@ func getElementType(el ElementID) elementType {
 		return masterType
 	case TimeSliceElement:
 		return masterType
-	case TimecodeElement:
+	case TimestampElement:
 		return uintegerType
-	case TimecodeScaleElement:
+	case TimestampScaleElement:
 		return uintegerType
 	case TitleElement:
 		return utf8Type
@@ -732,7 +784,7 @@ func getElementType(el ElementID) elementType {
 		return uintegerType
 	case TrackPlaneUIDElement:
 		return uintegerType
-	case TrackTimecodeScaleElement:
+	case TrackTimestampScaleElement:
 		return floatType
 	case TrackTranslateCodecElement:
 		return uintegerType
@@ -760,6 +812,8 @@ func getElementType(el ElementID) elementType {
 		return binaryType
 	case TrickTrackUIDElement:
 		return uintegerType
+	case UncompressedFourCCElement:
+		return binaryType
 	case VideoElement:
 		return masterType
 	case VoidElement:
@@ -776,6 +830,7 @@ func getElementType(el ElementID) elementType {
 }
 
 var elementNames = map[ElementID]string{
+	AESSettingsCipherModeElement:       "AESSettingsCipherMode",
 	AlphaModeElement:                   "AlphaMode",
 	AspectRatioTypeElement:             "AspectRatioType",
 	AttachedFileElement:                "AttachedFile",
@@ -785,7 +840,12 @@ var elementNames = map[ElementID]string{
 	BitDepthElement:                    "BitDepth",
 	BitsPerChannelElement:              "BitsPerChannel",
 	BlockAddIDElement:                  "BlockAddID",
+	BlockAddIDExtraDataElement:         "BlockAddIDExtraData",
+	BlockAddIDNameElement:              "BlockAddIDName",
+	BlockAddIDTypeElement:              "BlockAddIDType",
+	BlockAddIDValueElement:             "BlockAddIDValue",
 	BlockAdditionIDElement:             "BlockAdditionID",
+	BlockAdditionMappingElement:        "BlockAdditionMapping",
 	BlockAdditionalElement:             "BlockAdditional",
 	BlockAdditionsElement:              "BlockAdditions",
 	BlockDurationElement:               "BlockDuration",
@@ -799,8 +859,8 @@ var elementNames = map[ElementID]string{
 	ChannelPositionsElement:            "ChannelPositions",
 	ChannelsElement:                    "Channels",
 	ChapCountryElement:                 "ChapCountry",
+	ChapLanguageBCP47Element:           "ChapLanguageBCP47",
 	ChapLanguageElement:                "ChapLanguage",
-	ChapLanguageIETFElement:            "ChapLanguageIETF",
 	ChapProcessCodecIDElement:          "ChapProcessCodecID",
 	ChapProcessCommandElement:          "ChapProcessCommand",
 	ChapProcessDataElement:             "ChapProcessData",
@@ -814,12 +874,13 @@ var elementNames = map[ElementID]string{
 	ChapterFlagHiddenElement:           "ChapterFlagHidden",
 	ChapterPhysicalEquivElement:        "ChapterPhysicalEquiv",
 	ChapterSegmentEditionUIDElement:    "ChapterSegmentEditionUID",
-	ChapterSegmentUIDElement:           "ChapterSegmentUID",
+	ChapterSegmentUUIDElement:          "ChapterSegmentUUID",
+	ChapterSkipTypeElement:             "ChapterSkipType",
 	ChapterStringUIDElement:            "ChapterStringUID",
 	ChapterTimeEndElement:              "ChapterTimeEnd",
 	ChapterTimeStartElement:            "ChapterTimeStart",
 	ChapterTrackElement:                "ChapterTrack",
-	ChapterTrackNumberElement:          "ChapterTrackNumber",
+	ChapterTrackUIDElement:             "ChapterTrackUID",
 	ChapterTranslateCodecElement:       "ChapterTranslateCodec",
 	ChapterTranslateEditionUIDElement:  "ChapterTranslateEditionUID",
 	ChapterTranslateElement:            "ChapterTranslate",
@@ -841,10 +902,10 @@ var elementNames = map[ElementID]string{
 	CodecSettingsElement:               "CodecSettings",
 	CodecStateElement:                  "CodecState",
 	ColourElement:                      "Colour",
-	ColourSpaceElement:                 "ColourSpace",
 	ContentCompAlgoElement:             "ContentCompAlgo",
 	ContentCompSettingsElement:         "ContentCompSettings",
 	ContentCompressionElement:          "ContentCompression",
+	ContentEncAESSettingsElement:       "ContentEncAESSettings",
 	ContentEncAlgoElement:              "ContentEncAlgo",
 	ContentEncKeyIDElement:             "ContentEncKeyID",
 	ContentEncodingElement:             "ContentEncoding",
@@ -892,33 +953,42 @@ var elementNames = map[ElementID]string{
 	EBMLMaxSizeLengthElement:           "EBMLMaxSizeLength",
 	EBMLReadVersionElement:             "EBMLReadVersion",
 	EBMLVersionElement:                 "EBMLVersion",
+	EditionDisplayElement:              "EditionDisplay",
 	EditionEntryElement:                "EditionEntry",
 	EditionFlagDefaultElement:          "EditionFlagDefault",
 	EditionFlagHiddenElement:           "EditionFlagHidden",
 	EditionFlagOrderedElement:          "EditionFlagOrdered",
+	EditionLanguageIETFElement:         "EditionLanguageIETF",
+	EditionStringElement:               "EditionString",
 	EditionUIDElement:                  "EditionUID",
+	EmphasisElement:                    "Emphasis",
 	EncryptedBlockElement:              "EncryptedBlock",
 	FieldOrderElement:                  "FieldOrder",
 	FileDataElement:                    "FileData",
 	FileDescriptionElement:             "FileDescription",
-	FileMimeTypeElement:                "FileMimeType",
+	FileMediaTypeElement:               "FileMediaType",
 	FileNameElement:                    "FileName",
 	FileReferralElement:                "FileReferral",
 	FileUIDElement:                     "FileUID",
 	FileUsedEndTimeElement:             "FileUsedEndTime",
 	FileUsedStartTimeElement:           "FileUsedStartTime",
+	FlagCommentaryElement:              "FlagCommentary",
 	FlagDefaultElement:                 "FlagDefault",
 	FlagEnabledElement:                 "FlagEnabled",
 	FlagForcedElement:                  "FlagForced",
+	FlagHearingImpairedElement:         "FlagHearingImpaired",
 	FlagInterlacedElement:              "FlagInterlaced",
 	FlagLacingElement:                  "FlagLacing",
+	FlagOriginalElement:                "FlagOriginal",
+	FlagTextDescriptionsElement:        "FlagTextDescriptions",
+	FlagVisualImpairedElement:          "FlagVisualImpaired",
 	FrameNumberElement:                 "FrameNumber",
 	FrameRateElement:                   "FrameRate",
 	GammaValueElement:                  "GammaValue",
 	InfoElement:                        "Info",
 	LaceNumberElement:                  "LaceNumber",
+	LanguageBCP47Element:               "LanguageBCP47",
 	LanguageElement:                    "Language",
-	LanguageIETFElement:                "LanguageIETF",
 	LuminanceMaxElement:                "LuminanceMax",
 	LuminanceMinElement:                "LuminanceMin",
 	MasteringMetadataElement:           "MasteringMetadata",
@@ -931,7 +1001,7 @@ var elementNames = map[ElementID]string{
 	MuxingAppElement:                   "MuxingApp",
 	NameElement:                        "Name",
 	NextFilenameElement:                "NextFilename",
-	NextUIDElement:                     "NextUID",
+	NextUUIDElement:                    "NextUUID",
 	OldStereoModeElement:               "OldStereoMode",
 	OutputSamplingFrequencyElement:     "OutputSamplingFrequency",
 	PixelCropBottomElement:             "PixelCropBottom",
@@ -943,7 +1013,7 @@ var elementNames = map[ElementID]string{
 	PositionElement:                    "Position",
 	PrevFilenameElement:                "PrevFilename",
 	PrevSizeElement:                    "PrevSize",
-	PrevUIDElement:                     "PrevUID",
+	PrevUUIDElement:                    "PrevUUID",
 	PrimariesElement:                   "Primaries",
 	PrimaryBChromaticityXElement:       "PrimaryBChromaticityX",
 	PrimaryBChromaticityYElement:       "PrimaryBChromaticityY",
@@ -962,7 +1032,7 @@ var elementNames = map[ElementID]string{
 	ReferenceFrameElement:              "ReferenceFrame",
 	ReferenceOffsetElement:             "ReferenceOffset",
 	ReferencePriorityElement:           "ReferencePriority",
-	ReferenceTimeCodeElement:           "ReferenceTimeCode",
+	ReferenceTimestampElement:          "ReferenceTimestamp",
 	ReferenceVirtualElement:            "ReferenceVirtual",
 	SamplingFrequencyElement:           "SamplingFrequency",
 	SeekElement:                        "Seek",
@@ -973,7 +1043,7 @@ var elementNames = map[ElementID]string{
 	SegmentElement:                     "Segment",
 	SegmentFamilyElement:               "SegmentFamily",
 	SegmentFilenameElement:             "SegmentFilename",
-	SegmentUIDElement:                  "SegmentUID",
+	SegmentUUIDElement:                 "SegmentUUID",
 	SilentTrackNumberElement:           "SilentTrackNumber",
 	SilentTracksElement:                "SilentTracks",
 	SimpleBlockElement:                 "SimpleBlock",
@@ -984,11 +1054,12 @@ var elementNames = map[ElementID]string{
 	TagAttachmentUIDElement:            "TagAttachmentUID",
 	TagBinaryElement:                   "TagBinary",
 	TagChapterUIDElement:               "TagChapterUID",
+	TagDefaultBogusElement:             "TagDefaultBogus",
 	TagDefaultElement:                  "TagDefault",
 	TagEditionUIDElement:               "TagEditionUID",
 	TagElement:                         "Tag",
+	TagLanguageBCP47Element:            "TagLanguageBCP47",
 	TagLanguageElement:                 "TagLanguage",
-	TagLanguageIETFElement:             "TagLanguageIETF",
 	TagNameElement:                     "TagName",
 	TagStringElement:                   "TagString",
 	TagTrackUIDElement:                 "TagTrackUID",
@@ -997,8 +1068,8 @@ var elementNames = map[ElementID]string{
 	TargetTypeValueElement:             "TargetTypeValue",
 	TargetsElement:                     "Targets",
 	TimeSliceElement:                   "TimeSlice",
-	TimecodeElement:                    "Timecode",
-	TimecodeScaleElement:               "TimecodeScale",
+	TimestampElement:                   "Timestamp",
+	TimestampScaleElement:              "TimestampScale",
 	TitleElement:                       "Title",
 	TrackCombinePlanesElement:          "TrackCombinePlanes",
 	TrackEntryElement:                  "TrackEntry",
@@ -1011,7 +1082,7 @@ var elementNames = map[ElementID]string{
 	TrackPlaneElement:                  "TrackPlane",
 	TrackPlaneTypeElement:              "TrackPlaneType",
 	TrackPlaneUIDElement:               "TrackPlaneUID",
-	TrackTimecodeScaleElement:          "TrackTimecodeScale",
+	TrackTimestampScaleElement:         "TrackTimestampScale",
 	TrackTranslateCodecElement:         "TrackTranslateCodec",
 	TrackTranslateEditionUIDElement:    "TrackTranslateEditionUID",
 	TrackTranslateElement:              "TrackTranslate",
@@ -1025,6 +1096,7 @@ var elementNames = map[ElementID]string{
 	TrickTrackFlagElement:              "TrickTrackFlag",
 	TrickTrackSegmentUIDElement:        "TrickTrackSegmentUID",
 	TrickTrackUIDElement:               "TrickTrackUID",
+	UncompressedFourCCElement:          "UncompressedFourCC",
 	VideoElement:                       "Video",
 	VoidElement:                        "Void",
 	WhitePointChromaticityXElement:     "WhitePointChromaticityX",
@@ -1044,7 +1116,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case FileNameElement: // \Segment\Attachments\AttachedFile\FileName
 			return true
-		case FileMimeTypeElement: // \Segment\Attachments\AttachedFile\FileMimeType
+		case FileMediaTypeElement: // \Segment\Attachments\AttachedFile\FileMediaType
 			return true
 		case FileDataElement: // \Segment\Attachments\AttachedFile\FileData
 			return true
@@ -1071,7 +1143,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case FileNameElement: // \Segment\Attachments\AttachedFile\FileName
 			return true
-		case FileMimeTypeElement: // \Segment\Attachments\AttachedFile\FileMimeType
+		case FileMediaTypeElement: // \Segment\Attachments\AttachedFile\FileMediaType
 			return true
 		case FileDataElement: // \Segment\Attachments\AttachedFile\FileData
 			return true
@@ -1102,6 +1174,25 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BitDepthElement: // \Segment\Tracks\TrackEntry\Audio\BitDepth
 			return true
+		case EmphasisElement: // \Segment\Tracks\TrackEntry\Audio\Emphasis
+			return true
+		default:
+			return false
+		}
+	case BlockAdditionMappingElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping
+		switch p1 {
+		case VoidElement: // \(-\)Void
+			return true
+		case CRC32Element: // \(1-\)CRC-32
+			return true
+		case BlockAddIDValueElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDValue
+			return true
+		case BlockAddIDNameElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDName
+			return true
+		case BlockAddIDTypeElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDType
+			return true
+		case BlockAddIDExtraDataElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDExtraData
+			return true
 		default:
 			return false
 		}
@@ -1113,9 +1204,9 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BlockMoreElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore
 			return true
-		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
-			return true
 		case BlockAdditionalElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAdditional
+			return true
+		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
 			return true
 		default:
 			return false
@@ -1134,9 +1225,9 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BlockMoreElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore
 			return true
-		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
-			return true
 		case BlockAdditionalElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAdditional
+			return true
+		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
 			return true
 		case BlockDurationElement: // \Segment\Cluster\BlockGroup\BlockDuration
 			return true
@@ -1168,7 +1259,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ReferenceOffsetElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceOffset
 			return true
-		case ReferenceTimeCodeElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimeCode
+		case ReferenceTimestampElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimestamp
 			return true
 		default:
 			return false
@@ -1179,122 +1270,124 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
-			return true
 		case BlockAdditionalElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAdditional
 			return true
+		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
+			return true
 		default:
 			return false
 		}
-	case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand
+	case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand
 		switch p1 {
 		case VoidElement: // \(-\)Void
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
 			return true
-		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
+		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
 			return true
 		default:
 			return false
 		}
-	case ChapProcessElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess
+	case ChapProcessElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess
 		switch p1 {
 		case VoidElement: // \(-\)Void
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCodecID
+		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCodecID
 			return true
-		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessPrivate
+		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessPrivate
 			return true
-		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand
+		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand
 			return true
-		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
 			return true
-		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
+		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
 			return true
 		default:
 			return false
 		}
-	case ChapterAtomElement: // \Segment\Chapters\EditionEntry\ChapterAtom
+	case ChapterAtomElement: // \Segment\Chapters\EditionEntry\+ChapterAtom
 		switch p1 {
 		case VoidElement: // \(-\)Void
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterUID
+		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterUID
 			return true
-		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterStringUID
+		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterStringUID
 			return true
-		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeStart
+		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeStart
 			return true
-		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeEnd
+		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeEnd
 			return true
-		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagHidden
+		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagHidden
 			return true
-		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagEnabled
+		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagEnabled
 			return true
-		case ChapterSegmentUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentUID
+		case ChapterSegmentUUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentUUID
 			return true
-		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentEditionUID
+		case ChapterSkipTypeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSkipType
 			return true
-		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterPhysicalEquiv
+		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentEditionUID
 			return true
-		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack
+		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterPhysicalEquiv
 			return true
-		case ChapterTrackNumberElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack\ChapterTrackNumber
+		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack
 			return true
-		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay
+		case ChapterTrackUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack\ChapterTrackUID
 			return true
-		case ChapStringElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapString
+		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay
 			return true
-		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguage
+		case ChapStringElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapString
 			return true
-		case ChapLanguageIETFElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguageIETF
+		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguage
 			return true
-		case ChapCountryElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapCountry
+		case ChapLanguageBCP47Element: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguageBCP47
 			return true
-		case ChapProcessElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess
+		case ChapCountryElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapCountry
 			return true
-		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCodecID
+		case ChapProcessElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess
 			return true
-		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessPrivate
+		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCodecID
 			return true
-		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand
+		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessPrivate
 			return true
-		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand
 			return true
-		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
+		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+			return true
+		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
 			return true
 		default:
 			return false
 		}
-	case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay
+	case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay
 		switch p1 {
 		case VoidElement: // \(-\)Void
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case ChapStringElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapString
+		case ChapStringElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapString
 			return true
-		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguage
+		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguage
 			return true
-		case ChapLanguageIETFElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguageIETF
+		case ChapLanguageBCP47Element: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguageBCP47
 			return true
-		case ChapCountryElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapCountry
+		case ChapCountryElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapCountry
 			return true
 		default:
 			return false
 		}
-	case ChapterTrackElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack
+	case ChapterTrackElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack
 		switch p1 {
 		case VoidElement: // \(-\)Void
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case ChapterTrackNumberElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack\ChapterTrackNumber
+		case ChapterTrackUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack\ChapterTrackUID
 			return true
 		default:
 			return false
@@ -1305,11 +1398,11 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case ChapterTranslateEditionUIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateEditionUID
+		case ChapterTranslateIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateID
 			return true
 		case ChapterTranslateCodecElement: // \Segment\Info\ChapterTranslate\ChapterTranslateCodec
 			return true
-		case ChapterTranslateIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateID
+		case ChapterTranslateEditionUIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateEditionUID
 			return true
 		default:
 			return false
@@ -1330,51 +1423,59 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case EditionFlagOrderedElement: // \Segment\Chapters\EditionEntry\EditionFlagOrdered
 			return true
-		case ChapterAtomElement: // \Segment\Chapters\EditionEntry\ChapterAtom
+		case EditionDisplayElement: // \Segment\Chapters\EditionEntry\EditionDisplay
 			return true
-		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterUID
+		case EditionStringElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionString
 			return true
-		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterStringUID
+		case EditionLanguageIETFElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionLanguageIETF
 			return true
-		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeStart
+		case ChapterAtomElement: // \Segment\Chapters\EditionEntry\+ChapterAtom
 			return true
-		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeEnd
+		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterUID
 			return true
-		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagHidden
+		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterStringUID
 			return true
-		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagEnabled
+		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeStart
 			return true
-		case ChapterSegmentUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentUID
+		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeEnd
 			return true
-		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentEditionUID
+		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagHidden
 			return true
-		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterPhysicalEquiv
+		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagEnabled
 			return true
-		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack
+		case ChapterSegmentUUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentUUID
 			return true
-		case ChapterTrackNumberElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack\ChapterTrackNumber
+		case ChapterSkipTypeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSkipType
 			return true
-		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay
+		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentEditionUID
 			return true
-		case ChapStringElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapString
+		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterPhysicalEquiv
 			return true
-		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguage
+		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack
 			return true
-		case ChapLanguageIETFElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguageIETF
+		case ChapterTrackUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack\ChapterTrackUID
 			return true
-		case ChapCountryElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapCountry
+		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay
 			return true
-		case ChapProcessElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess
+		case ChapStringElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapString
 			return true
-		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCodecID
+		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguage
 			return true
-		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessPrivate
+		case ChapLanguageBCP47Element: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguageBCP47
 			return true
-		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand
+		case ChapCountryElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapCountry
 			return true
-		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+		case ChapProcessElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess
 			return true
-		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
+		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCodecID
+			return true
+		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessPrivate
+			return true
+		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand
+			return true
+		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+			return true
+		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
 			return true
 		default:
 			return false
@@ -1385,7 +1486,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case TimecodeElement: // \Segment\Cluster\Timecode
+		case TimestampElement: // \Segment\Cluster\Timestamp
 			return true
 		case SilentTracksElement: // \Segment\Cluster\SilentTracks
 			return true
@@ -1407,9 +1508,9 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BlockMoreElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore
 			return true
-		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
-			return true
 		case BlockAdditionalElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAdditional
+			return true
+		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
 			return true
 		case BlockDurationElement: // \Segment\Cluster\BlockGroup\BlockDuration
 			return true
@@ -1441,7 +1542,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ReferenceOffsetElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceOffset
 			return true
-		case ReferenceTimeCodeElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimeCode
+		case ReferenceTimestampElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimestamp
 			return true
 		case EncryptedBlockElement: // \Segment\Cluster\EncryptedBlock
 			return true
@@ -1453,8 +1554,6 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		case VoidElement: // \(-\)Void
 			return true
 		case CRC32Element: // \(1-\)CRC-32
-			return true
-		case ColourSpaceElement: // \Segment\Tracks\TrackEntry\Video\ColourSpace
 			return true
 		case MatrixCoefficientsElement: // \Segment\Tracks\TrackEntry\Video\Colour\MatrixCoefficients
 			return true
@@ -1520,6 +1619,17 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		default:
 			return false
 		}
+	case ContentEncAESSettingsElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings
+		switch p1 {
+		case VoidElement: // \(-\)Void
+			return true
+		case CRC32Element: // \(1-\)CRC-32
+			return true
+		case AESSettingsCipherModeElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings\AESSettingsCipherMode
+			return true
+		default:
+			return false
+		}
 	case ContentEncodingElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding
 		switch p1 {
 		case VoidElement: // \(-\)Void
@@ -1543,6 +1653,10 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		case ContentEncAlgoElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAlgo
 			return true
 		case ContentEncKeyIDElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncKeyID
+			return true
+		case ContentEncAESSettingsElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings
+			return true
+		case AESSettingsCipherModeElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings\AESSettingsCipherMode
 			return true
 		case ContentSignatureElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentSignature
 			return true
@@ -1581,6 +1695,10 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ContentEncKeyIDElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncKeyID
 			return true
+		case ContentEncAESSettingsElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings
+			return true
+		case AESSettingsCipherModeElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings\AESSettingsCipherMode
+			return true
 		case ContentSignatureElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentSignature
 			return true
 		case ContentSigKeyIDElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentSigKeyID
@@ -1601,6 +1719,10 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		case ContentEncAlgoElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAlgo
 			return true
 		case ContentEncKeyIDElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncKeyID
+			return true
+		case ContentEncAESSettingsElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings
+			return true
+		case AESSettingsCipherModeElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings\AESSettingsCipherMode
 			return true
 		case ContentSignatureElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentSignature
 			return true
@@ -1775,6 +1897,19 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		default:
 			return false
 		}
+	case EditionDisplayElement: // \Segment\Chapters\EditionEntry\EditionDisplay
+		switch p1 {
+		case VoidElement: // \(-\)Void
+			return true
+		case CRC32Element: // \(1-\)CRC-32
+			return true
+		case EditionStringElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionString
+			return true
+		case EditionLanguageIETFElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionLanguageIETF
+			return true
+		default:
+			return false
+		}
 	case EditionEntryElement: // \Segment\Chapters\EditionEntry
 		switch p1 {
 		case VoidElement: // \(-\)Void
@@ -1789,51 +1924,59 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case EditionFlagOrderedElement: // \Segment\Chapters\EditionEntry\EditionFlagOrdered
 			return true
-		case ChapterAtomElement: // \Segment\Chapters\EditionEntry\ChapterAtom
+		case EditionDisplayElement: // \Segment\Chapters\EditionEntry\EditionDisplay
 			return true
-		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterUID
+		case EditionStringElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionString
 			return true
-		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterStringUID
+		case EditionLanguageIETFElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionLanguageIETF
 			return true
-		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeStart
+		case ChapterAtomElement: // \Segment\Chapters\EditionEntry\+ChapterAtom
 			return true
-		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeEnd
+		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterUID
 			return true
-		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagHidden
+		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterStringUID
 			return true
-		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagEnabled
+		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeStart
 			return true
-		case ChapterSegmentUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentUID
+		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeEnd
 			return true
-		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentEditionUID
+		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagHidden
 			return true
-		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterPhysicalEquiv
+		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagEnabled
 			return true
-		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack
+		case ChapterSegmentUUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentUUID
 			return true
-		case ChapterTrackNumberElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack\ChapterTrackNumber
+		case ChapterSkipTypeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSkipType
 			return true
-		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay
+		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentEditionUID
 			return true
-		case ChapStringElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapString
+		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterPhysicalEquiv
 			return true
-		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguage
+		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack
 			return true
-		case ChapLanguageIETFElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguageIETF
+		case ChapterTrackUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack\ChapterTrackUID
 			return true
-		case ChapCountryElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapCountry
+		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay
 			return true
-		case ChapProcessElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess
+		case ChapStringElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapString
 			return true
-		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCodecID
+		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguage
 			return true
-		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessPrivate
+		case ChapLanguageBCP47Element: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguageBCP47
 			return true
-		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand
+		case ChapCountryElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapCountry
 			return true
-		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+		case ChapProcessElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess
 			return true
-		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
+		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCodecID
+			return true
+		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessPrivate
+			return true
+		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand
+			return true
+		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+			return true
+		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
 			return true
 		default:
 			return false
@@ -1844,15 +1987,15 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case SegmentUIDElement: // \Segment\Info\SegmentUID
+		case SegmentUUIDElement: // \Segment\Info\SegmentUUID
 			return true
 		case SegmentFilenameElement: // \Segment\Info\SegmentFilename
 			return true
-		case PrevUIDElement: // \Segment\Info\PrevUID
+		case PrevUUIDElement: // \Segment\Info\PrevUUID
 			return true
 		case PrevFilenameElement: // \Segment\Info\PrevFilename
 			return true
-		case NextUIDElement: // \Segment\Info\NextUID
+		case NextUUIDElement: // \Segment\Info\NextUUID
 			return true
 		case NextFilenameElement: // \Segment\Info\NextFilename
 			return true
@@ -1860,13 +2003,13 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ChapterTranslateElement: // \Segment\Info\ChapterTranslate
 			return true
-		case ChapterTranslateEditionUIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateEditionUID
+		case ChapterTranslateIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateID
 			return true
 		case ChapterTranslateCodecElement: // \Segment\Info\ChapterTranslate\ChapterTranslateCodec
 			return true
-		case ChapterTranslateIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateID
+		case ChapterTranslateEditionUIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateEditionUID
 			return true
-		case TimecodeScaleElement: // \Segment\Info\TimecodeScale
+		case TimestampScaleElement: // \Segment\Info\TimestampScale
 			return true
 		case DurationElement: // \Segment\Info\Duration
 			return true
@@ -1937,7 +2080,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ReferenceOffsetElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceOffset
 			return true
-		case ReferenceTimeCodeElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimeCode
+		case ReferenceTimestampElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimestamp
 			return true
 		default:
 			return false
@@ -1986,15 +2129,15 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case InfoElement: // \Segment\Info
 			return true
-		case SegmentUIDElement: // \Segment\Info\SegmentUID
+		case SegmentUUIDElement: // \Segment\Info\SegmentUUID
 			return true
 		case SegmentFilenameElement: // \Segment\Info\SegmentFilename
 			return true
-		case PrevUIDElement: // \Segment\Info\PrevUID
+		case PrevUUIDElement: // \Segment\Info\PrevUUID
 			return true
 		case PrevFilenameElement: // \Segment\Info\PrevFilename
 			return true
-		case NextUIDElement: // \Segment\Info\NextUID
+		case NextUUIDElement: // \Segment\Info\NextUUID
 			return true
 		case NextFilenameElement: // \Segment\Info\NextFilename
 			return true
@@ -2002,13 +2145,13 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ChapterTranslateElement: // \Segment\Info\ChapterTranslate
 			return true
-		case ChapterTranslateEditionUIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateEditionUID
+		case ChapterTranslateIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateID
 			return true
 		case ChapterTranslateCodecElement: // \Segment\Info\ChapterTranslate\ChapterTranslateCodec
 			return true
-		case ChapterTranslateIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateID
+		case ChapterTranslateEditionUIDElement: // \Segment\Info\ChapterTranslate\ChapterTranslateEditionUID
 			return true
-		case TimecodeScaleElement: // \Segment\Info\TimecodeScale
+		case TimestampScaleElement: // \Segment\Info\TimestampScale
 			return true
 		case DurationElement: // \Segment\Info\Duration
 			return true
@@ -2022,7 +2165,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ClusterElement: // \Segment\Cluster
 			return true
-		case TimecodeElement: // \Segment\Cluster\Timecode
+		case TimestampElement: // \Segment\Cluster\Timestamp
 			return true
 		case SilentTracksElement: // \Segment\Cluster\SilentTracks
 			return true
@@ -2044,9 +2187,9 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BlockMoreElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore
 			return true
-		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
-			return true
 		case BlockAdditionalElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAdditional
+			return true
+		case BlockAddIDElement: // \Segment\Cluster\BlockGroup\BlockAdditions\BlockMore\BlockAddID
 			return true
 		case BlockDurationElement: // \Segment\Cluster\BlockGroup\BlockDuration
 			return true
@@ -2078,7 +2221,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case ReferenceOffsetElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceOffset
 			return true
-		case ReferenceTimeCodeElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimeCode
+		case ReferenceTimestampElement: // \Segment\Cluster\BlockGroup\ReferenceFrame\ReferenceTimestamp
 			return true
 		case EncryptedBlockElement: // \Segment\Cluster\EncryptedBlock
 			return true
@@ -2098,6 +2241,16 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case FlagForcedElement: // \Segment\Tracks\TrackEntry\FlagForced
 			return true
+		case FlagHearingImpairedElement: // \Segment\Tracks\TrackEntry\FlagHearingImpaired
+			return true
+		case FlagVisualImpairedElement: // \Segment\Tracks\TrackEntry\FlagVisualImpaired
+			return true
+		case FlagTextDescriptionsElement: // \Segment\Tracks\TrackEntry\FlagTextDescriptions
+			return true
+		case FlagOriginalElement: // \Segment\Tracks\TrackEntry\FlagOriginal
+			return true
+		case FlagCommentaryElement: // \Segment\Tracks\TrackEntry\FlagCommentary
+			return true
 		case FlagLacingElement: // \Segment\Tracks\TrackEntry\FlagLacing
 			return true
 		case MinCacheElement: // \Segment\Tracks\TrackEntry\MinCache
@@ -2108,17 +2261,27 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case DefaultDecodedFieldDurationElement: // \Segment\Tracks\TrackEntry\DefaultDecodedFieldDuration
 			return true
-		case TrackTimecodeScaleElement: // \Segment\Tracks\TrackEntry\TrackTimecodeScale
+		case TrackTimestampScaleElement: // \Segment\Tracks\TrackEntry\TrackTimestampScale
 			return true
 		case TrackOffsetElement: // \Segment\Tracks\TrackEntry\TrackOffset
 			return true
 		case MaxBlockAdditionIDElement: // \Segment\Tracks\TrackEntry\MaxBlockAdditionID
 			return true
+		case BlockAdditionMappingElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping
+			return true
+		case BlockAddIDValueElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDValue
+			return true
+		case BlockAddIDNameElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDName
+			return true
+		case BlockAddIDTypeElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDType
+			return true
+		case BlockAddIDExtraDataElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDExtraData
+			return true
 		case NameElement: // \Segment\Tracks\TrackEntry\Name
 			return true
 		case LanguageElement: // \Segment\Tracks\TrackEntry\Language
 			return true
-		case LanguageIETFElement: // \Segment\Tracks\TrackEntry\LanguageIETF
+		case LanguageBCP47Element: // \Segment\Tracks\TrackEntry\LanguageBCP47
 			return true
 		case CodecIDElement: // \Segment\Tracks\TrackEntry\CodecID
 			return true
@@ -2144,11 +2307,11 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case TrackTranslateElement: // \Segment\Tracks\TrackEntry\TrackTranslate
 			return true
-		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
+		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
 			return true
 		case TrackTranslateCodecElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateCodec
 			return true
-		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
+		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
 			return true
 		case VideoElement: // \Segment\Tracks\TrackEntry\Video
 			return true
@@ -2182,7 +2345,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case AspectRatioTypeElement: // \Segment\Tracks\TrackEntry\Video\AspectRatioType
 			return true
-		case ColourSpaceElement: // \Segment\Tracks\TrackEntry\Video\ColourSpace
+		case UncompressedFourCCElement: // \Segment\Tracks\TrackEntry\Video\UncompressedFourCC
 			return true
 		case GammaValueElement: // \Segment\Tracks\TrackEntry\Video\GammaValue
 			return true
@@ -2262,6 +2425,8 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BitDepthElement: // \Segment\Tracks\TrackEntry\Audio\BitDepth
 			return true
+		case EmphasisElement: // \Segment\Tracks\TrackEntry\Audio\Emphasis
+			return true
 		case TrackOperationElement: // \Segment\Tracks\TrackEntry\TrackOperation
 			return true
 		case TrackCombinePlanesElement: // \Segment\Tracks\TrackEntry\TrackOperation\TrackCombinePlanes
@@ -2307,6 +2472,10 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		case ContentEncAlgoElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAlgo
 			return true
 		case ContentEncKeyIDElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncKeyID
+			return true
+		case ContentEncAESSettingsElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings
+			return true
+		case AESSettingsCipherModeElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings\AESSettingsCipherMode
 			return true
 		case ContentSignatureElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentSignature
 			return true
@@ -2354,7 +2523,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case FileNameElement: // \Segment\Attachments\AttachedFile\FileName
 			return true
-		case FileMimeTypeElement: // \Segment\Attachments\AttachedFile\FileMimeType
+		case FileMediaTypeElement: // \Segment\Attachments\AttachedFile\FileMediaType
 			return true
 		case FileDataElement: // \Segment\Attachments\AttachedFile\FileData
 			return true
@@ -2378,51 +2547,59 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case EditionFlagOrderedElement: // \Segment\Chapters\EditionEntry\EditionFlagOrdered
 			return true
-		case ChapterAtomElement: // \Segment\Chapters\EditionEntry\ChapterAtom
+		case EditionDisplayElement: // \Segment\Chapters\EditionEntry\EditionDisplay
 			return true
-		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterUID
+		case EditionStringElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionString
 			return true
-		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterStringUID
+		case EditionLanguageIETFElement: // \Segment\Chapters\EditionEntry\EditionDisplay\EditionLanguageIETF
 			return true
-		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeStart
+		case ChapterAtomElement: // \Segment\Chapters\EditionEntry\+ChapterAtom
 			return true
-		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTimeEnd
+		case ChapterUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterUID
 			return true
-		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagHidden
+		case ChapterStringUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterStringUID
 			return true
-		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterFlagEnabled
+		case ChapterTimeStartElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeStart
 			return true
-		case ChapterSegmentUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentUID
+		case ChapterTimeEndElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTimeEnd
 			return true
-		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterSegmentEditionUID
+		case ChapterFlagHiddenElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagHidden
 			return true
-		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterPhysicalEquiv
+		case ChapterFlagEnabledElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterFlagEnabled
 			return true
-		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack
+		case ChapterSegmentUUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentUUID
 			return true
-		case ChapterTrackNumberElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterTrack\ChapterTrackNumber
+		case ChapterSkipTypeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSkipType
 			return true
-		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay
+		case ChapterSegmentEditionUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterSegmentEditionUID
 			return true
-		case ChapStringElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapString
+		case ChapterPhysicalEquivElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterPhysicalEquiv
 			return true
-		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguage
+		case ChapterTrackElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack
 			return true
-		case ChapLanguageIETFElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapLanguageIETF
+		case ChapterTrackUIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterTrack\ChapterTrackUID
 			return true
-		case ChapCountryElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapterDisplay\ChapCountry
+		case ChapterDisplayElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay
 			return true
-		case ChapProcessElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess
+		case ChapStringElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapString
 			return true
-		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCodecID
+		case ChapLanguageElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguage
 			return true
-		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessPrivate
+		case ChapLanguageBCP47Element: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapLanguageBCP47
 			return true
-		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand
+		case ChapCountryElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapterDisplay\ChapCountry
 			return true
-		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+		case ChapProcessElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess
 			return true
-		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
+		case ChapProcessCodecIDElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCodecID
+			return true
+		case ChapProcessPrivateElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessPrivate
+			return true
+		case ChapProcessCommandElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand
+			return true
+		case ChapProcessTimeElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessTime
+			return true
+		case ChapProcessDataElement: // \Segment\Chapters\EditionEntry\+ChapterAtom\ChapProcess\ChapProcessCommand\ChapProcessData
 			return true
 		case TagsElement: // \Segment\Tags
 			return true
@@ -2442,19 +2619,21 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case TagAttachmentUIDElement: // \Segment\Tags\Tag\Targets\TagAttachmentUID
 			return true
-		case SimpleTagElement: // \Segment\Tags\Tag\SimpleTag
+		case SimpleTagElement: // \Segment\Tags\Tag\+SimpleTag
 			return true
-		case TagNameElement: // \Segment\Tags\Tag\SimpleTag\TagName
+		case TagNameElement: // \Segment\Tags\Tag\+SimpleTag\TagName
 			return true
-		case TagLanguageElement: // \Segment\Tags\Tag\SimpleTag\TagLanguage
+		case TagLanguageElement: // \Segment\Tags\Tag\+SimpleTag\TagLanguage
 			return true
-		case TagLanguageIETFElement: // \Segment\Tags\Tag\SimpleTag\TagLanguageIETF
+		case TagLanguageBCP47Element: // \Segment\Tags\Tag\+SimpleTag\TagLanguageBCP47
 			return true
-		case TagDefaultElement: // \Segment\Tags\Tag\SimpleTag\TagDefault
+		case TagDefaultElement: // \Segment\Tags\Tag\+SimpleTag\TagDefault
 			return true
-		case TagStringElement: // \Segment\Tags\Tag\SimpleTag\TagString
+		case TagDefaultBogusElement: // \Segment\Tags\Tag\+SimpleTag\TagDefaultBogus
 			return true
-		case TagBinaryElement: // \Segment\Tags\Tag\SimpleTag\TagBinary
+		case TagStringElement: // \Segment\Tags\Tag\+SimpleTag\TagString
+			return true
+		case TagBinaryElement: // \Segment\Tags\Tag\+SimpleTag\TagBinary
 			return true
 		default:
 			return false
@@ -2470,23 +2649,25 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		default:
 			return false
 		}
-	case SimpleTagElement: // \Segment\Tags\Tag\SimpleTag
+	case SimpleTagElement: // \Segment\Tags\Tag\+SimpleTag
 		switch p1 {
 		case VoidElement: // \(-\)Void
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case TagNameElement: // \Segment\Tags\Tag\SimpleTag\TagName
+		case TagNameElement: // \Segment\Tags\Tag\+SimpleTag\TagName
 			return true
-		case TagLanguageElement: // \Segment\Tags\Tag\SimpleTag\TagLanguage
+		case TagLanguageElement: // \Segment\Tags\Tag\+SimpleTag\TagLanguage
 			return true
-		case TagLanguageIETFElement: // \Segment\Tags\Tag\SimpleTag\TagLanguageIETF
+		case TagLanguageBCP47Element: // \Segment\Tags\Tag\+SimpleTag\TagLanguageBCP47
 			return true
-		case TagDefaultElement: // \Segment\Tags\Tag\SimpleTag\TagDefault
+		case TagDefaultElement: // \Segment\Tags\Tag\+SimpleTag\TagDefault
 			return true
-		case TagStringElement: // \Segment\Tags\Tag\SimpleTag\TagString
+		case TagDefaultBogusElement: // \Segment\Tags\Tag\+SimpleTag\TagDefaultBogus
 			return true
-		case TagBinaryElement: // \Segment\Tags\Tag\SimpleTag\TagBinary
+		case TagStringElement: // \Segment\Tags\Tag\+SimpleTag\TagString
+			return true
+		case TagBinaryElement: // \Segment\Tags\Tag\+SimpleTag\TagBinary
 			return true
 		default:
 			return false
@@ -2532,19 +2713,21 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case TagAttachmentUIDElement: // \Segment\Tags\Tag\Targets\TagAttachmentUID
 			return true
-		case SimpleTagElement: // \Segment\Tags\Tag\SimpleTag
+		case SimpleTagElement: // \Segment\Tags\Tag\+SimpleTag
 			return true
-		case TagNameElement: // \Segment\Tags\Tag\SimpleTag\TagName
+		case TagNameElement: // \Segment\Tags\Tag\+SimpleTag\TagName
 			return true
-		case TagLanguageElement: // \Segment\Tags\Tag\SimpleTag\TagLanguage
+		case TagLanguageElement: // \Segment\Tags\Tag\+SimpleTag\TagLanguage
 			return true
-		case TagLanguageIETFElement: // \Segment\Tags\Tag\SimpleTag\TagLanguageIETF
+		case TagLanguageBCP47Element: // \Segment\Tags\Tag\+SimpleTag\TagLanguageBCP47
 			return true
-		case TagDefaultElement: // \Segment\Tags\Tag\SimpleTag\TagDefault
+		case TagDefaultElement: // \Segment\Tags\Tag\+SimpleTag\TagDefault
 			return true
-		case TagStringElement: // \Segment\Tags\Tag\SimpleTag\TagString
+		case TagDefaultBogusElement: // \Segment\Tags\Tag\+SimpleTag\TagDefaultBogus
 			return true
-		case TagBinaryElement: // \Segment\Tags\Tag\SimpleTag\TagBinary
+		case TagStringElement: // \Segment\Tags\Tag\+SimpleTag\TagString
+			return true
+		case TagBinaryElement: // \Segment\Tags\Tag\+SimpleTag\TagBinary
 			return true
 		default:
 			return false
@@ -2571,19 +2754,21 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case TagAttachmentUIDElement: // \Segment\Tags\Tag\Targets\TagAttachmentUID
 			return true
-		case SimpleTagElement: // \Segment\Tags\Tag\SimpleTag
+		case SimpleTagElement: // \Segment\Tags\Tag\+SimpleTag
 			return true
-		case TagNameElement: // \Segment\Tags\Tag\SimpleTag\TagName
+		case TagNameElement: // \Segment\Tags\Tag\+SimpleTag\TagName
 			return true
-		case TagLanguageElement: // \Segment\Tags\Tag\SimpleTag\TagLanguage
+		case TagLanguageElement: // \Segment\Tags\Tag\+SimpleTag\TagLanguage
 			return true
-		case TagLanguageIETFElement: // \Segment\Tags\Tag\SimpleTag\TagLanguageIETF
+		case TagLanguageBCP47Element: // \Segment\Tags\Tag\+SimpleTag\TagLanguageBCP47
 			return true
-		case TagDefaultElement: // \Segment\Tags\Tag\SimpleTag\TagDefault
+		case TagDefaultElement: // \Segment\Tags\Tag\+SimpleTag\TagDefault
 			return true
-		case TagStringElement: // \Segment\Tags\Tag\SimpleTag\TagString
+		case TagDefaultBogusElement: // \Segment\Tags\Tag\+SimpleTag\TagDefaultBogus
 			return true
-		case TagBinaryElement: // \Segment\Tags\Tag\SimpleTag\TagBinary
+		case TagStringElement: // \Segment\Tags\Tag\+SimpleTag\TagString
+			return true
+		case TagBinaryElement: // \Segment\Tags\Tag\+SimpleTag\TagBinary
 			return true
 		default:
 			return false
@@ -2661,6 +2846,16 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case FlagForcedElement: // \Segment\Tracks\TrackEntry\FlagForced
 			return true
+		case FlagHearingImpairedElement: // \Segment\Tracks\TrackEntry\FlagHearingImpaired
+			return true
+		case FlagVisualImpairedElement: // \Segment\Tracks\TrackEntry\FlagVisualImpaired
+			return true
+		case FlagTextDescriptionsElement: // \Segment\Tracks\TrackEntry\FlagTextDescriptions
+			return true
+		case FlagOriginalElement: // \Segment\Tracks\TrackEntry\FlagOriginal
+			return true
+		case FlagCommentaryElement: // \Segment\Tracks\TrackEntry\FlagCommentary
+			return true
 		case FlagLacingElement: // \Segment\Tracks\TrackEntry\FlagLacing
 			return true
 		case MinCacheElement: // \Segment\Tracks\TrackEntry\MinCache
@@ -2671,17 +2866,27 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case DefaultDecodedFieldDurationElement: // \Segment\Tracks\TrackEntry\DefaultDecodedFieldDuration
 			return true
-		case TrackTimecodeScaleElement: // \Segment\Tracks\TrackEntry\TrackTimecodeScale
+		case TrackTimestampScaleElement: // \Segment\Tracks\TrackEntry\TrackTimestampScale
 			return true
 		case TrackOffsetElement: // \Segment\Tracks\TrackEntry\TrackOffset
 			return true
 		case MaxBlockAdditionIDElement: // \Segment\Tracks\TrackEntry\MaxBlockAdditionID
 			return true
+		case BlockAdditionMappingElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping
+			return true
+		case BlockAddIDValueElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDValue
+			return true
+		case BlockAddIDNameElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDName
+			return true
+		case BlockAddIDTypeElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDType
+			return true
+		case BlockAddIDExtraDataElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDExtraData
+			return true
 		case NameElement: // \Segment\Tracks\TrackEntry\Name
 			return true
 		case LanguageElement: // \Segment\Tracks\TrackEntry\Language
 			return true
-		case LanguageIETFElement: // \Segment\Tracks\TrackEntry\LanguageIETF
+		case LanguageBCP47Element: // \Segment\Tracks\TrackEntry\LanguageBCP47
 			return true
 		case CodecIDElement: // \Segment\Tracks\TrackEntry\CodecID
 			return true
@@ -2707,11 +2912,11 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case TrackTranslateElement: // \Segment\Tracks\TrackEntry\TrackTranslate
 			return true
-		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
+		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
 			return true
 		case TrackTranslateCodecElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateCodec
 			return true
-		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
+		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
 			return true
 		case VideoElement: // \Segment\Tracks\TrackEntry\Video
 			return true
@@ -2745,7 +2950,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case AspectRatioTypeElement: // \Segment\Tracks\TrackEntry\Video\AspectRatioType
 			return true
-		case ColourSpaceElement: // \Segment\Tracks\TrackEntry\Video\ColourSpace
+		case UncompressedFourCCElement: // \Segment\Tracks\TrackEntry\Video\UncompressedFourCC
 			return true
 		case GammaValueElement: // \Segment\Tracks\TrackEntry\Video\GammaValue
 			return true
@@ -2825,6 +3030,8 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BitDepthElement: // \Segment\Tracks\TrackEntry\Audio\BitDepth
 			return true
+		case EmphasisElement: // \Segment\Tracks\TrackEntry\Audio\Emphasis
+			return true
 		case TrackOperationElement: // \Segment\Tracks\TrackEntry\TrackOperation
 			return true
 		case TrackCombinePlanesElement: // \Segment\Tracks\TrackEntry\TrackOperation\TrackCombinePlanes
@@ -2870,6 +3077,10 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		case ContentEncAlgoElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAlgo
 			return true
 		case ContentEncKeyIDElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncKeyID
+			return true
+		case ContentEncAESSettingsElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings
+			return true
+		case AESSettingsCipherModeElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings\AESSettingsCipherMode
 			return true
 		case ContentSignatureElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentSignature
 			return true
@@ -2933,11 +3144,11 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case CRC32Element: // \(1-\)CRC-32
 			return true
-		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
+		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
 			return true
 		case TrackTranslateCodecElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateCodec
 			return true
-		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
+		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
 			return true
 		default:
 			return false
@@ -2962,6 +3173,16 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case FlagForcedElement: // \Segment\Tracks\TrackEntry\FlagForced
 			return true
+		case FlagHearingImpairedElement: // \Segment\Tracks\TrackEntry\FlagHearingImpaired
+			return true
+		case FlagVisualImpairedElement: // \Segment\Tracks\TrackEntry\FlagVisualImpaired
+			return true
+		case FlagTextDescriptionsElement: // \Segment\Tracks\TrackEntry\FlagTextDescriptions
+			return true
+		case FlagOriginalElement: // \Segment\Tracks\TrackEntry\FlagOriginal
+			return true
+		case FlagCommentaryElement: // \Segment\Tracks\TrackEntry\FlagCommentary
+			return true
 		case FlagLacingElement: // \Segment\Tracks\TrackEntry\FlagLacing
 			return true
 		case MinCacheElement: // \Segment\Tracks\TrackEntry\MinCache
@@ -2972,17 +3193,27 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case DefaultDecodedFieldDurationElement: // \Segment\Tracks\TrackEntry\DefaultDecodedFieldDuration
 			return true
-		case TrackTimecodeScaleElement: // \Segment\Tracks\TrackEntry\TrackTimecodeScale
+		case TrackTimestampScaleElement: // \Segment\Tracks\TrackEntry\TrackTimestampScale
 			return true
 		case TrackOffsetElement: // \Segment\Tracks\TrackEntry\TrackOffset
 			return true
 		case MaxBlockAdditionIDElement: // \Segment\Tracks\TrackEntry\MaxBlockAdditionID
 			return true
+		case BlockAdditionMappingElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping
+			return true
+		case BlockAddIDValueElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDValue
+			return true
+		case BlockAddIDNameElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDName
+			return true
+		case BlockAddIDTypeElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDType
+			return true
+		case BlockAddIDExtraDataElement: // \Segment\Tracks\TrackEntry\BlockAdditionMapping\BlockAddIDExtraData
+			return true
 		case NameElement: // \Segment\Tracks\TrackEntry\Name
 			return true
 		case LanguageElement: // \Segment\Tracks\TrackEntry\Language
 			return true
-		case LanguageIETFElement: // \Segment\Tracks\TrackEntry\LanguageIETF
+		case LanguageBCP47Element: // \Segment\Tracks\TrackEntry\LanguageBCP47
 			return true
 		case CodecIDElement: // \Segment\Tracks\TrackEntry\CodecID
 			return true
@@ -3008,11 +3239,11 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case TrackTranslateElement: // \Segment\Tracks\TrackEntry\TrackTranslate
 			return true
-		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
+		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
 			return true
 		case TrackTranslateCodecElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateCodec
 			return true
-		case TrackTranslateTrackIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateTrackID
+		case TrackTranslateEditionUIDElement: // \Segment\Tracks\TrackEntry\TrackTranslate\TrackTranslateEditionUID
 			return true
 		case VideoElement: // \Segment\Tracks\TrackEntry\Video
 			return true
@@ -3046,7 +3277,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case AspectRatioTypeElement: // \Segment\Tracks\TrackEntry\Video\AspectRatioType
 			return true
-		case ColourSpaceElement: // \Segment\Tracks\TrackEntry\Video\ColourSpace
+		case UncompressedFourCCElement: // \Segment\Tracks\TrackEntry\Video\UncompressedFourCC
 			return true
 		case GammaValueElement: // \Segment\Tracks\TrackEntry\Video\GammaValue
 			return true
@@ -3126,6 +3357,8 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case BitDepthElement: // \Segment\Tracks\TrackEntry\Audio\BitDepth
 			return true
+		case EmphasisElement: // \Segment\Tracks\TrackEntry\Audio\Emphasis
+			return true
 		case TrackOperationElement: // \Segment\Tracks\TrackEntry\TrackOperation
 			return true
 		case TrackCombinePlanesElement: // \Segment\Tracks\TrackEntry\TrackOperation\TrackCombinePlanes
@@ -3171,6 +3404,10 @@ func isDescendantElement(p1, p2 ElementID) bool {
 		case ContentEncAlgoElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAlgo
 			return true
 		case ContentEncKeyIDElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncKeyID
+			return true
+		case ContentEncAESSettingsElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings
+			return true
+		case AESSettingsCipherModeElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentEncAESSettings\AESSettingsCipherMode
 			return true
 		case ContentSignatureElement: // \Segment\Tracks\TrackEntry\ContentEncodings\ContentEncoding\ContentEncryption\ContentSignature
 			return true
@@ -3219,7 +3456,7 @@ func isDescendantElement(p1, p2 ElementID) bool {
 			return true
 		case AspectRatioTypeElement: // \Segment\Tracks\TrackEntry\Video\AspectRatioType
 			return true
-		case ColourSpaceElement: // \Segment\Tracks\TrackEntry\Video\ColourSpace
+		case UncompressedFourCCElement: // \Segment\Tracks\TrackEntry\Video\UncompressedFourCC
 			return true
 		case GammaValueElement: // \Segment\Tracks\TrackEntry\Video\GammaValue
 			return true
@@ -3306,11 +3543,29 @@ func isRootElement(el ElementID) bool {
 	}
 }
 
+// Possible AESSettingsCipherModeElement values
+const (
+	AESSettingsCipherMode_AESCTR int64 = 1 // AES-CTR
+	AESSettingsCipherMode_AESCBC int64 = 2 // AES-CBC
+)
+
+// Possible AlphaModeElement values
+const (
+	AlphaMode_None    int64 = 0 // none
+	AlphaMode_Present int64 = 1 // present
+)
+
 // Possible AspectRatioTypeElement values
 const (
 	AspectRatioType_FreeResizing    int64 = 0 // free resizing
 	AspectRatioType_KeepAspectRatio int64 = 1 // keep aspect ratio
 	AspectRatioType_Fixed           int64 = 2 // fixed
+)
+
+// Possible ChapProcessCodecIDElement values
+const (
+	ChapProcessCodecID_MatroskaScript int64 = 0 // Matroska Script
+	ChapProcessCodecID_DVDMenu        int64 = 1 // DVD-menu
 )
 
 // Possible ChapProcessTimeElement values
@@ -3320,10 +3575,15 @@ const (
 	ChapProcessTime_AfterPlaybackOfChapter int64 = 2 // after playback of the chapter
 )
 
-// Possible ChapterTranslateCodecElement values
+// Possible ChapterSkipTypeElement values
 const (
-	ChapterTranslateCodec_MatroskaScript int64 = 0 // Matroska Script
-	ChapterTranslateCodec_DVDMenu        int64 = 1 // DVD-menu
+	ChapterSkipType_NoSkipping     int64 = 0 // No Skipping
+	ChapterSkipType_OpeningCredits int64 = 1 // Opening Credits
+	ChapterSkipType_EndCredits     int64 = 2 // End Credits
+	ChapterSkipType_Recap          int64 = 3 // Recap
+	ChapterSkipType_NextPreview    int64 = 4 // Next Preview
+	ChapterSkipType_Preview        int64 = 5 // Preview
+	ChapterSkipType_Advertisement  int64 = 6 // Advertisement
 )
 
 // Possible ChromaSitingHorzElement values
@@ -3340,6 +3600,50 @@ const (
 	ChromaSitingVert_Half          int64 = 2 // half
 )
 
+// Possible ContentCompAlgoElement values
+const (
+	ContentCompAlgo_Zlib            int64 = 0 // zlib
+	ContentCompAlgo_Bzlib           int64 = 1 // bzlib
+	ContentCompAlgo_Lzo1x           int64 = 2 // lzo1x
+	ContentCompAlgo_HeaderStripping int64 = 3 // Header Stripping
+)
+
+// Possible ContentEncAlgoElement values
+const (
+	ContentEncAlgo_NotEncrypted int64 = 0 // Not encrypted
+	ContentEncAlgo_DES          int64 = 1 // DES
+	ContentEncAlgo_3DES         int64 = 2 // 3DES
+	ContentEncAlgo_Twofish      int64 = 3 // Twofish
+	ContentEncAlgo_Blowfish     int64 = 4 // Blowfish
+	ContentEncAlgo_AES          int64 = 5 // AES
+)
+
+// Possible ContentEncodingScopeElement values
+const (
+	ContentEncodingScope_Block   int64 = 0x1 // Block
+	ContentEncodingScope_Private int64 = 0x2 // Private
+	ContentEncodingScope_Next    int64 = 0x4 // Next
+)
+
+// Possible ContentEncodingTypeElement values
+const (
+	ContentEncodingType_Compression int64 = 0 // Compression
+	ContentEncodingType_Encryption  int64 = 1 // Encryption
+)
+
+// Possible ContentSigAlgoElement values
+const (
+	ContentSigAlgo_NotSigned int64 = 0 // Not signed
+	ContentSigAlgo_RSA       int64 = 1 // RSA
+)
+
+// Possible ContentSigHashAlgoElement values
+const (
+	ContentSigHashAlgo_NotSigned int64 = 0 // Not signed
+	ContentSigHashAlgo_SHA1160   int64 = 1 // SHA1-160
+	ContentSigHashAlgo_MD5       int64 = 2 // MD5
+)
+
 // Possible DisplayUnitElement values
 const (
 	DisplayUnit_Pixels             int64 = 0 // pixels
@@ -3349,14 +3653,31 @@ const (
 	DisplayUnit_Unknown            int64 = 4 // unknown
 )
 
+// Possible EmphasisElement values
+const (
+	Emphasis_NoEmphasis      int64 = 0  // No emphasis
+	Emphasis_CDAudio         int64 = 1  // CD audio
+	Emphasis_Reserved2       int64 = 2  // reserved
+	Emphasis_CCITJ17         int64 = 3  // CCIT J.17
+	Emphasis_FM50            int64 = 4  // FM 50
+	Emphasis_FM75            int64 = 5  // FM 75
+	Emphasis_PhonoRIAA       int64 = 10 // Phono RIAA
+	Emphasis_PhonoIECN78     int64 = 11 // Phono IEC N78
+	Emphasis_PhonoTELDEC     int64 = 12 // Phono TELDEC
+	Emphasis_PhonoEMI        int64 = 13 // Phono EMI
+	Emphasis_PhonoColumbiaLP int64 = 14 // Phono Columbia LP
+	Emphasis_PhonoLONDON     int64 = 15 // Phono LONDON
+	Emphasis_PhonoNARTB      int64 = 16 // Phono NARTB
+)
+
 // Possible FieldOrderElement values
 const (
-	FieldOrder_Progressive  int64 = 0  // progressive
-	FieldOrder_TFF          int64 = 1  // tff
-	FieldOrder_Undetermined int64 = 2  // undetermined
-	FieldOrder_BFF          int64 = 6  // bff
-	FieldOrder_BFF_Swapped  int64 = 9  // bff(swapped)
-	FieldOrder_TFF_Swapped  int64 = 14 // tff(swapped)
+	FieldOrder_Progressive     int64 = 0  // progressive
+	FieldOrder_TFF             int64 = 1  // tff
+	FieldOrder_Undetermined    int64 = 2  // undetermined
+	FieldOrder_BFF             int64 = 6  // bff
+	FieldOrder_TFF_Interleaved int64 = 9  // tff (interleaved)
+	FieldOrder_BFF_Interleaved int64 = 14 // bff (interleaved)
 )
 
 // Possible FlagInterlacedElement values
@@ -3368,17 +3689,21 @@ const (
 
 // Possible MatrixCoefficientsElement values
 const (
-	MatrixCoefficients_GBR                        int64 = 0  // GBR
-	MatrixCoefficients_BT709                      int64 = 1  // BT709
-	MatrixCoefficients_Unspecified                int64 = 2  // unspecified
-	MatrixCoefficients_Reserved3                  int64 = 3  // reserved
-	MatrixCoefficients_FCC                        int64 = 4  // FCC
-	MatrixCoefficients_BT470BG                    int64 = 5  // BT470BG
-	MatrixCoefficients_SMPTE170M                  int64 = 6  // SMPTE 170M
-	MatrixCoefficients_SMPTE240M                  int64 = 7  // SMPTE 240M
-	MatrixCoefficients_YCoCg                      int64 = 8  // YCoCg
-	MatrixCoefficients_BT2020NonConstantLuminance int64 = 9  // BT2020 Non-constant Luminance
-	MatrixCoefficients_BT2020ConstantLuminance    int64 = 10 // BT2020 Constant Luminance
+	MatrixCoefficients_Identity                          int64 = 0  // Identity
+	MatrixCoefficients_ITURBT709                         int64 = 1  // ITU-R BT.709
+	MatrixCoefficients_Unspecified                       int64 = 2  // unspecified
+	MatrixCoefficients_Reserved3                         int64 = 3  // reserved
+	MatrixCoefficients_USFCC73682                        int64 = 4  // US FCC 73.682
+	MatrixCoefficients_ITURBT470BG                       int64 = 5  // ITU-R BT.470BG
+	MatrixCoefficients_SMPTE170M                         int64 = 6  // SMPTE 170M
+	MatrixCoefficients_SMPTE240M                         int64 = 7  // SMPTE 240M
+	MatrixCoefficients_YCoCg                             int64 = 8  // YCoCg
+	MatrixCoefficients_BT2020NonConstantLuminance        int64 = 9  // BT2020 Non-constant Luminance
+	MatrixCoefficients_BT2020ConstantLuminance           int64 = 10 // BT2020 Constant Luminance
+	MatrixCoefficients_SMPTEST2085                       int64 = 11 // SMPTE ST 2085
+	MatrixCoefficients_ChromaDerivedNonConstantLuminance int64 = 12 // Chroma-derived Non-constant Luminance
+	MatrixCoefficients_ChromaDerivedConstantLuminance    int64 = 13 // Chroma-derived Constant Luminance
+	MatrixCoefficients_ITURBT21000                       int64 = 14 // ITU-R BT.2100-0
 )
 
 // Possible OldStereoModeElement values
@@ -3391,18 +3716,20 @@ const (
 
 // Possible PrimariesElement values
 const (
-	Primaries_Reserved0         int64 = 0  // reserved
-	Primaries_ITURBT709         int64 = 1  // ITU-R BT.709
-	Primaries_Unspecified       int64 = 2  // unspecified
-	Primaries_Reserved3         int64 = 3  // reserved
-	Primaries_ITURBT470M        int64 = 4  // ITU-R BT.470M
-	Primaries_ITURBT470BG       int64 = 5  // ITU-R BT.470BG
-	Primaries_SMPTE170M         int64 = 6  // SMPTE 170M
-	Primaries_SMPTE240M         int64 = 7  // SMPTE 240M
-	Primaries_FILM              int64 = 8  // FILM
-	Primaries_ITURBT2020        int64 = 9  // ITU-R BT.2020
-	Primaries_SMPTEST4281       int64 = 10 // SMPTE ST 428-1
-	Primaries_JEDECP22Phosphors int64 = 22 // JEDEC P22 phosphors
+	Primaries_Reserved0                     int64 = 0  // reserved
+	Primaries_ITURBT709                     int64 = 1  // ITU-R BT.709
+	Primaries_Unspecified                   int64 = 2  // unspecified
+	Primaries_Reserved2                     int64 = 3  // reserved2
+	Primaries_ITURBT470M                    int64 = 4  // ITU-R BT.470M
+	Primaries_ITURBT470BGBT601625           int64 = 5  // ITU-R BT.470BG - BT.601 625
+	Primaries_ITURBT601525SMPTE170M         int64 = 6  // ITU-R BT.601 525 - SMPTE 170M
+	Primaries_SMPTE240M                     int64 = 7  // SMPTE 240M
+	Primaries_FILM                          int64 = 8  // FILM
+	Primaries_ITURBT2020                    int64 = 9  // ITU-R BT.2020
+	Primaries_SMPTEST4281                   int64 = 10 // SMPTE ST 428-1
+	Primaries_SMPTERP4322                   int64 = 11 // SMPTE RP 432-2
+	Primaries_SMPTEEG4322                   int64 = 12 // SMPTE EG 432-2
+	Primaries_EBUTech3213EJEDECP22Phosphors int64 = 22 // EBU Tech. 3213-E - JEDEC P22 phosphors
 )
 
 // Possible ProjectionTypeElement values
@@ -3418,7 +3745,7 @@ const (
 	Range_Unspecified                                         int64 = 0 // unspecified
 	Range_BroadcastRange                                      int64 = 1 // broadcast range
 	Range_FullRange_NoClipping                                int64 = 2 // full range (no clipping)
-	Range_DefinedByMatrixCoefficients_TransferCharacteristics int64 = 3 // defined by MatrixCoefficients/TransferCharacteristics
+	Range_DefinedByMatrixCoefficients_TransferCharacteristics int64 = 3 // defined by MatrixCoefficients / TransferCharacteristics
 )
 
 // Possible StereoModeElement values
@@ -3442,38 +3769,24 @@ const (
 
 // Possible TargetTypeElement values
 const (
-	TargetType_COLLECTION string = "COLLECTION" // COLLECTION
-	TargetType_EDITION    string = "EDITION"    // EDITION
-	TargetType_ISSUE      string = "ISSUE"      // ISSUE
-	TargetType_VOLUME     string = "VOLUME"     // VOLUME
-	TargetType_OPUS       string = "OPUS"       // OPUS
-	TargetType_SEASON     string = "SEASON"     // SEASON
-	TargetType_SEQUEL     string = "SEQUEL"     // SEQUEL
-	TargetType_ALBUM      string = "ALBUM"      // ALBUM
-	TargetType_OPERA      string = "OPERA"      // OPERA
-	TargetType_CONCERT    string = "CONCERT"    // CONCERT
-	TargetType_MOVIE      string = "MOVIE"      // MOVIE
-	TargetType_EPISODE    string = "EPISODE"    // EPISODE
-	TargetType_PART       string = "PART"       // PART
-	TargetType_SESSION    string = "SESSION"    // SESSION
-	TargetType_TRACK      string = "TRACK"      // TRACK
-	TargetType_SONG       string = "SONG"       // SONG
-	TargetType_CHAPTER    string = "CHAPTER"    // CHAPTER
-	TargetType_SUBTRACK   string = "SUBTRACK"   // SUBTRACK
-	TargetType_MOVEMENT   string = "MOVEMENT"   // MOVEMENT
-	TargetType_SCENE      string = "SCENE"      // SCENE
-	TargetType_SHOT       string = "SHOT"       // SHOT
+	TargetType_TargetTypeValue70 string = "COLLECTION" // TargetTypeValue 70
+	TargetType_TargetTypeValue60 string = "EDITION"    // TargetTypeValue 60
+	TargetType_TargetTypeValue50 string = "ALBUM"      // TargetTypeValue 50
+	TargetType_TargetTypeValue40 string = "PART"       // TargetTypeValue 40
+	TargetType_TargetTypeValue30 string = "TRACK"      // TargetTypeValue 30
+	TargetType_TargetTypeValue20 string = "SUBTRACK"   // TargetTypeValue 20
+	TargetType_TargetTypeValue10 string = "SHOT"       // TargetTypeValue 10
 )
 
 // Possible TargetTypeValueElement values
 const (
-	TargetTypeValue_COLLECTION                                int64 = 70 // COLLECTION
-	TargetTypeValue_EDITION_ISSUE_VOLUME_OPUS_SEASON_SEQUEL   int64 = 60 // EDITION / ISSUE / VOLUME / OPUS / SEASON / SEQUEL
-	TargetTypeValue_ALBUM_OPERA_CONCERT_MOVIE_EPISODE_CONCERT int64 = 50 // ALBUM / OPERA / CONCERT / MOVIE / EPISODE / CONCERT
-	TargetTypeValue_PART_SESSION                              int64 = 40 // PART / SESSION
-	TargetTypeValue_TRACK_SONG_CHAPTER                        int64 = 30 // TRACK / SONG / CHAPTER
-	TargetTypeValue_SUBTRACK_PART_MOVEMENT_SCENE              int64 = 20 // SUBTRACK / PART / MOVEMENT / SCENE
-	TargetTypeValue_SHOT                                      int64 = 10 // SHOT
+	TargetTypeValue_SHOT                                    int64 = 10 // SHOT
+	TargetTypeValue_SUBTRACK_MOVEMENT_SCENE                 int64 = 20 // SUBTRACK / MOVEMENT / SCENE
+	TargetTypeValue_TRACK_SONG_CHAPTER                      int64 = 30 // TRACK / SONG / CHAPTER
+	TargetTypeValue_PART_SESSION                            int64 = 40 // PART / SESSION
+	TargetTypeValue_ALBUM_OPERA_CONCERT_MOVIE_EPISODE       int64 = 50 // ALBUM / OPERA / CONCERT / MOVIE / EPISODE
+	TargetTypeValue_EDITION_ISSUE_VOLUME_OPUS_SEASON_SEQUEL int64 = 60 // EDITION / ISSUE / VOLUME / OPUS / SEASON / SEQUEL
+	TargetTypeValue_COLLECTION                              int64 = 70 // COLLECTION
 )
 
 // Possible TrackPlaneTypeElement values
@@ -3481,12 +3794,6 @@ const (
 	TrackPlaneType_LeftEye    int64 = 0 // left eye
 	TrackPlaneType_RightEye   int64 = 1 // right eye
 	TrackPlaneType_Background int64 = 2 // background
-)
-
-// Possible TrackTranslateCodecElement values
-const (
-	TrackTranslateCodec_MatroskaScript int64 = 0 // Matroska Script
-	TrackTranslateCodec_DVDMenu        int64 = 1 // DVD-menu
 )
 
 // Possible TrackTypeElement values
@@ -3498,27 +3805,28 @@ const (
 	TrackType_Subtitle int64 = 17 // subtitle
 	TrackType_Buttons  int64 = 18 // buttons
 	TrackType_Control  int64 = 32 // control
+	TrackType_Metadata int64 = 33 // metadata
 )
 
 // Possible TransferCharacteristicsElement values
 const (
-	TransferCharacteristics_Reserved0                     int64 = 0  // reserved
-	TransferCharacteristics_ITURBT709                     int64 = 1  // ITU-R BT.709
-	TransferCharacteristics_Unspecified                   int64 = 2  // unspecified
-	TransferCharacteristics_Reserved3                     int64 = 3  // reserved
-	TransferCharacteristics_Gamma22Curve                  int64 = 4  // Gamma 2.2 curve
-	TransferCharacteristics_Gamma28Curve                  int64 = 5  // Gamma 2.8 curve
-	TransferCharacteristics_SMPTE170M                     int64 = 6  // SMPTE 170M
-	TransferCharacteristics_SMPTE240M                     int64 = 7  // SMPTE 240M
-	TransferCharacteristics_Linear                        int64 = 8  // Linear
-	TransferCharacteristics_Log                           int64 = 9  // Log
-	TransferCharacteristics_LogSqrt                       int64 = 10 // Log Sqrt
-	TransferCharacteristics_IEC6196624                    int64 = 11 // IEC 61966-2-4
-	TransferCharacteristics_ITURBT1361ExtendedColourGamut int64 = 12 // ITU-R BT.1361 Extended Colour Gamut
-	TransferCharacteristics_IEC6196621                    int64 = 13 // IEC 61966-2-1
-	TransferCharacteristics_ITURBT202010Bit               int64 = 14 // ITU-R BT.2020 10 bit
-	TransferCharacteristics_ITURBT202012Bit               int64 = 15 // ITU-R BT.2020 12 bit
-	TransferCharacteristics_SMPTEST2084                   int64 = 16 // SMPTE ST 2084
-	TransferCharacteristics_SMPTEST4281                   int64 = 17 // SMPTE ST 428-1
-	TransferCharacteristics_ARIBSTDB67_HLG                int64 = 18 // ARIB STD-B67 (HLG)
+	TransferCharacteristics_Reserved0                        int64 = 0  // reserved
+	TransferCharacteristics_ITURBT709                        int64 = 1  // ITU-R BT.709
+	TransferCharacteristics_Unspecified                      int64 = 2  // unspecified
+	TransferCharacteristics_Reserved2                        int64 = 3  // reserved2
+	TransferCharacteristics_Gamma22CurveBT470M               int64 = 4  // Gamma 2.2 curve - BT.470M
+	TransferCharacteristics_Gamma28CurveBT470BG              int64 = 5  // Gamma 2.8 curve - BT.470BG
+	TransferCharacteristics_SMPTE170M                        int64 = 6  // SMPTE 170M
+	TransferCharacteristics_SMPTE240M                        int64 = 7  // SMPTE 240M
+	TransferCharacteristics_Linear                           int64 = 8  // Linear
+	TransferCharacteristics_Log                              int64 = 9  // Log
+	TransferCharacteristics_LogSqrt                          int64 = 10 // Log Sqrt
+	TransferCharacteristics_IEC6196624                       int64 = 11 // IEC 61966-2-4
+	TransferCharacteristics_ITURBT1361ExtendedColourGamut    int64 = 12 // ITU-R BT.1361 Extended Colour Gamut
+	TransferCharacteristics_IEC6196621                       int64 = 13 // IEC 61966-2-1
+	TransferCharacteristics_ITURBT202010Bit                  int64 = 14 // ITU-R BT.2020 10 bit
+	TransferCharacteristics_ITURBT202012Bit                  int64 = 15 // ITU-R BT.2020 12 bit
+	TransferCharacteristics_ITURBT2100PerceptualQuantization int64 = 16 // ITU-R BT.2100 Perceptual Quantization
+	TransferCharacteristics_SMPTEST4281                      int64 = 17 // SMPTE ST 428-1
+	TransferCharacteristics_ARIBSTDB67_HLG                   int64 = 18 // ARIB STD-B67 (HLG)
 )

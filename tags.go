@@ -103,6 +103,7 @@ const (
 	Tag_Title                 string = "TITLE"
 	Tag_TotalParts            string = "TOTAL_PARTS"
 	Tag_Tuning                string = "TUNING"
+	Tag_Tvdb2                 string = "TVDB2"
 	Tag_URL                   string = "URL"
 	Tag_WrittenBy             string = "WRITTEN_BY"
 )

@@ -66,8 +66,8 @@ func generateElements() error {
 	haveElement := map[string]bool{}
 	for _, schema := range []string{
 		"https://raw.githubusercontent.com/ietf-wg-cellar/ebml-specification/master/ebml.xml",
-		// "https://raw.githubusercontent.com/ietf-wg-cellar/matroska-specification/master/ebml_matroska.xml",
-		"https://raw.githubusercontent.com/ietf-wg-cellar/matroska-specification/v03/ebml_matroska.xml",
+		"https://raw.githubusercontent.com/ietf-wg-cellar/matroska-specification/master/ebml_matroska.xml",
+		// "https://raw.githubusercontent.com/ietf-wg-cellar/matroska-specification/v03/ebml_matroska.xml",
 	} {
 		isLegacySchema := strings.HasSuffix(schema, "ebml_matroska.xml")
 		sb, err := loadSchema(schema)

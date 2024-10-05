@@ -32,7 +32,7 @@ func (p *CoverHandler) HandleMasterEnd(id ElementID, info ElementInfo) error {
 func (p *CoverHandler) HandleString(id ElementID, value string, info ElementInfo) error {
 	if id == FileNameElement {
 		p.currentAttachmentFileName = value
-	} else if id == FileMimeTypeElement {
+	} else if id == FileMediaTypeElement {
 		p.currentAttachmentMIMEType = value
 	}
 	return nil

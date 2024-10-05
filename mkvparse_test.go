@@ -11,7 +11,7 @@ import (
 
 func TestReadElementID(t *testing.T) {
 	testIDs := map[ElementID][]byte{
-		TimecodeElement:        {0xE7},
+		TimestampElement:       {0xE7},
 		EBMLVersionElement:     {0x42, 0x86},
 		DefaultDurationElement: {0x23, 0xE3, 0x83},
 		EBMLElement:            {0x1A, 0x45, 0xDF, 0xA3},
@@ -121,7 +121,7 @@ func TestParseElement(t *testing.T) {
 					MasterBeginEvent{},
 				},
 				{
-					TimecodeElement,
+					TimestampElement,
 					ElementInfo{
 						ElementOffset: 5,
 						Offset:        7,
@@ -179,7 +179,7 @@ func TestParseElement(t *testing.T) {
 					MasterBeginEvent{},
 				},
 				{
-					TimecodeElement,
+					TimestampElement,
 					ElementInfo{
 						ElementOffset: 5,
 						Offset:        7,
@@ -189,7 +189,7 @@ func TestParseElement(t *testing.T) {
 					int64(0x3),
 				},
 				{
-					TimecodeElement,
+					TimestampElement,
 					ElementInfo{
 						ElementOffset: 8,
 						Offset:        10,
@@ -199,7 +199,7 @@ func TestParseElement(t *testing.T) {
 					int64(0x3),
 				},
 				{
-					TimecodeElement,
+					TimestampElement,
 					ElementInfo{
 						ElementOffset: 11,
 						Offset:        13,
@@ -229,7 +229,7 @@ func TestParseElement(t *testing.T) {
 					MasterBeginEvent{},
 				},
 				{
-					TimecodeElement,
+					TimestampElement,
 					ElementInfo{
 						ElementOffset: 20,
 						Offset:        22,
